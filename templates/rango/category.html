@@ -1,42 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Category</title>
-    {% load static %}
-</head>
-<body>
+{% extends 'rango/base.html' %}
+{% load static %}
+{% load rango_template_tags %}
 
-    <p>
-        <a href="{% url 'rango:index' %}">Home</a> |
-        <a href="{% url 'rango:add_category' %}">Add a New Category</a> |
-        <a href="{% url 'rango:about' %}">About</a>
-    </p>
+{% block title_block %}
+{% if category %}
+{{ category.name }}
+{% else %}
+Unknown Category
+{% endif %}
+{% endblock %}
 
-    {% if category %}
-        <h1>{{ category.name }}</h1>
-        <p>Views: {{ category.views }} | Likes: {{ category.likes }}</p>
+{% block body_block %}
+{% if category %}
+<h1>{{ category.name }}</h1>
+{% if pages %}
+<ul>
+{% for page in pages %}
+<li><a href="{{ page.url }}">{{ page.title }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<strong>No pages currently in category.</strong>
+{% endif %}
+<p>
+<a href="{% url 'rango:add_page' category.slug %}">Add a Page</a> |
+<a href="{% url 'rango:index' %}">Back to Index</a>
+</p>
+{% else %}
+<h2>Unknown Category</h2>
+<p><a href="{% url 'rango:index' %}">Back to Index</a></p>
+{% endif %}
+{% endblock %}
 
-        {% if pages %}
-            <ul>
-            {% for page in pages %}
-                <li>
-                    <a href="{{ page.url }}">{{ page.title }}</a>
-                    ({{ page.views }} views)
-                </li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <strong>No pages currently in this category.</strong>
-        {% endif %}
-
-        <p>
-            <a href="{% url 'rango:add_page' category.slug %}">Add a Page</a> |
-            <a href="{% url 'rango:index' %}">Back to Index</a>
-        </p>
-    {% else %}
-        <h2>No such category found!</h2>
-        <p><a href="{% url 'rango:index' %}">Back to Index</a></p>
-    {% endif %}
-</body>
-</html>
+{% block sidebar_block %}
+{% get_category_list category %}
+{% endblock %}
