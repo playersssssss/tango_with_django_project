@@ -1,27 +1,22 @@
 <!DOCTYPE html>
-
-{% load static %}
-
-<html>
+<html lang="en">
 <head>
-    <title>Rango</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <meta charset="UTF-8">
+    <title>About Rango</title>
 </head>
 <body>
+    <p>
+        <a href="{% url 'rango:index' %}">Home</a> |
+        <a href="{% url 'rango:about' %}">About</a>
+    </p>
+
     <h1>Rango says...</h1>
-    <div>
-        hey there partner! <br />
-        <strong>{{ boldmessage }}</strong><br />
-    </div>
-    <div>
-        <a href="{% url 'rango:about' %}">About</a><br />
-        <a href="{% url 'rango:index' %}">Index</a><br />
-        <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango">
-    </div>
-    <div>
-        <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat">
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <p>This tutorial has been put
+        together by <Junquan Chen>.</p>
+
+ 
+    <img src="/media/cat.jpg" alt="Cute Cat" />
+
+    <p><a href="{% url 'rango:index' %}">Back to the Index</a></p>
 </body>
 </html>
-

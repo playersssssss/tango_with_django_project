@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a New Category</title>
+    {% load static %}
+</head>
+<body>
+
+    <p>
+        <a href="{% url 'rango:index' %}">Home</a> |
+        <a href="{% url 'rango:add_category' %}">Add a New Category</a> |
+        <a href="{% url 'rango:about' %}">About</a>
+    </p>
+
+    <h1>Add a New Category</h1>
+
+    <form id="category_form" method="post" action="{% url 'rango:add_category' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="submit" value="Create Category" />
+    </form>
+
+    <p>
+        <a href="{% url 'rango:index' %}">Back to Index</a>
+    </p>
+</body>
+</html>
